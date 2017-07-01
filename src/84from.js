@@ -151,6 +151,22 @@ alasql.from.JSON = function(filename, opts, cb, idx, query) {
 	return res;
 };
 
+alasql.from.DKAN = function(filename, opts, cb, idx, query) {
+	var res;
+	//console.log('cb',cb);
+//console.log('JSON');
+	filename = alasql.utils.autoExtFilename(filename,'json',opts);
+	alasql.utils.loadFile(filename,!!cb,function(data){
+//		console.log('DATA:'+data);
+//		res = [{a:1}];
+		res = JSON.parse(data).result.records;
+		if(cb){
+			res = cb(res, idx, query);
+		}
+	});
+	return res;
+};
+
 alasql.from.TXT = function(filename, opts, cb, idx, query) {
 	var res;
 	filename = alasql.utils.autoExtFilename(filename,'txt',opts);
