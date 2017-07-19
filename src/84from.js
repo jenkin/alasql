@@ -21,12 +21,14 @@ alasql.from.METEOR = function(filename, opts, cb, idx, query) {
 /**
 	Google Spreadsheet reader
  */
-alasql.from.TABLETOP = function(key, opts, cb, idx, query) {
+alasql.from.TABLETOP = alasql.from.GSHEET = function(key, opts, cb, idx, query) {
 	var res = [];
 
 	var opt = {headers:true, simpleSheet:true, key:key};
-	alasql.utils.extend(opt, opts);
-	opt.callback = function(data){
+    alasql.utils.extend(opt, opts);
+    if (opt.sheet) { opt.simpleSheet = false; }
+    opt.callback = function(data){
+        var data = opt.simpleSheet ? data : data[opt.sheet].elements;
 		for(var i=0; i<data.length; i++) {
 			for (var prop in data[i]) {
 	        	if(data[i][prop] == +data[i][prop] && data[i].hasOwnProperty(prop)){ // jshint ignore:line
