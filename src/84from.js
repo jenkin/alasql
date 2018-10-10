@@ -154,6 +154,17 @@ alasql.from.JSON = function(filename, opts, cb, idx, query) {
 	return res;
 };
 
+alasql.from.CKAN = function(filename, opts, cb, idx, query) {
+	var res;
+	
+	alasql.from.JSON(filename, opts, function(res,idx,query) {
+		return cb(res.result.records, idx, query);
+	}, idx, query);
+	return res;
+};
+
+alasql.from.DKAN = alasql.from.CKAN;
+
 alasql.from.TXT = function(filename, opts, cb, idx, query) {
 	var res;
 	filename = alasql.utils.autoExtFilename(filename, 'txt', opts);
