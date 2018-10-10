@@ -1,7 +1,7 @@
-//! AlaSQL v0.4.11 | © 2014-2018 Andrey Gershun & Mathias Rangel Wulff | License: MIT
+//! AlaSQL v0.4.11-jenkin.develop-a851180dundefined | © 2014-2018 Andrey Gershun & Mathias Rangel Wulff | License: MIT
 /*
 @module alasql
-@version 0.4.11
+@version 0.4.11-jenkin.develop-a851180dundefined
 
 AlaSQL - JavaScript SQL database
 © 2014-2016	Andrey Gershun & Mathias Rangel Wulff
@@ -142,7 +142,7 @@ var alasql = function(sql, params, cb, scope) {
 	Current version of alasql 
  	@constant {string} 
 */
-alasql.version = '0.4.11';
+alasql.version = '0.4.11-jenkin.develop-a851180dundefined';
 
 /**
 	Debug flag
@@ -17305,12 +17305,24 @@ alasql.from.METEOR = function(filename, opts, cb, idx, query) {
 /**
  Google Spreadsheet reader
  */
-alasql.from.TABLETOP = function(key, opts, cb, idx, query) {
+alasql.from.TABLETOP = alasql.from.GSHEET = function(key, opts, cb, idx, query) {
 	var res = [];
 
 	var opt = {headers: true, simpleSheet: true, key: key};
 	alasql.utils.extend(opt, opts);
+	if (opt.sheet) {
+		opt.simpleSheet = false;
+	}
 	opt.callback = function(data) {
+		var data = opt.simpleSheet ? data : data[opt.sheet].elements;
+		for (var i = 0; i < data.length; i++) {
+			for (var prop in data[i]) {
+				if (data[i][prop] == +data[i][prop] && data[i].hasOwnProperty(prop)) {
+					// jshint ignore:line
+					data[i][prop] = +data[i][prop];
+				}
+			}
+		}
 		res = data;
 		if (cb) {
 			res = cb(res, idx, query);
@@ -17424,6 +17436,23 @@ alasql.from.JSON = function(filename, opts, cb, idx, query) {
 	});
 	return res;
 };
+
+alasql.from.CKAN = function(filename, opts, cb, idx, query) {
+	var res;
+
+	alasql.from.JSON(
+		filename,
+		opts,
+		function(res, idx, query) {
+			return cb(res.result.records, idx, query);
+		},
+		idx,
+		query
+	);
+	return res;
+};
+
+alasql.from.DKAN = alasql.from.CKAN;
 
 alasql.from.TXT = function(filename, opts, cb, idx, query) {
 	var res;
