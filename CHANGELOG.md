@@ -1,9 +1,74 @@
 # Changelog
 
 
-_0.4.1 "Sayhut" (xx.06.2017)_
+## 0.4.11 "Lawdar" (05.10.2018)
 
-* ...
+* Add: Specified XLSX sheet without knowing the name
+
+
+## 0.4.10 "Maoshk" (04.10.2018)
+
+
+* Add: xlsxml files with multiple sheets
+
+
+## 0.4.9 "Alsalfiah" (05.08.2018)
+
+* Better: Error message grammar
+* Better: Support for Meteor code standards
+* Fix: dbprecision for select query
+* Fix: Handle promise error when reading one line csv files
+* Fix: AUTO_INCREMENT when using local storage
+
+## 0.4.8 "Nafhan" (14.07.2018)
+
+* Fix: Error when installing caused by missing cli file in npm
+
+
+## 0.4.7 "Tarim" (14.07.2018)
+
+* Better: Always find global object 
+
+
+## 0.4.6 "Rahbah" (14.06.2018)
+
+* Better: `Use strict` mode for javascript 
+
+
+## 0.4.5 "Marib" (24.01.2018)
+
+* Fix: Aggregate functions applied to empty sets (#964)
+* Fix: missing ORDER BY direction when calling toString on AST (#970)
+* Fix: Converting the syntax tree back to SQL with multple joins (#972)
+
+## 0.4.4 "Alsowm" (03.012.2017)
+
+* Better: Better usage via unpkg.com
+* Better: Better usage via jsdelivr.com
+
+
+## 0.4.3 "Hajjah" (05.09.2017)
+
+* Update: Removed implicit "any" in definition file
+* Fix: Tabletop reads in empty cells as numeric 0 instead of empty string 
+* Fix: DISTINCT on emtpy table produced error
+
+
+## 0.4.2 "Baraqish" (17.08.2017)
+
+* Added: SQL function LTRIM
+* Added: SQL function RTRIM
+* Better: Remove implicit any in type script definitioni
+* Better: Out-of-the-box Webpack and Browserify compatibility without hacks
+* Fix: Use created database id on foreign key check as default database
+
+ 
+## 0.4.1 "Sayhut" (23.07.2017)
+
+* Better: Performace on `distinct` selects 
+* Better: Hashing for cashed SQLs 
+* Fix: Case insensetive selects from EXCEL
+* Fix: Select from empty EXCEL
 
 
 #0.4.0 "Sanaa" (09.05.2017)
